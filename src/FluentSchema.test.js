@@ -152,6 +152,38 @@ describe('FluentSchema', () => {
     })
 
     describe('required', () => {
+      it('adds to root', () => {
+        expect(() => {
+          FluentSchema()
+            .asString()
+            .required()
+        }).toThrow(
+          "'required' has to be chained to a prop: \nExamples: \n- FluentSchema().prop('prop').required() \n- FluentSchema().prop('prop', FluentSchema().asNumber()).required()"
+        )
+      })
+
+      it('add to a prop', () => {
+        const prop = 'foo'
+        expect(
+          FluentSchema()
+            .prop(prop)
+            .required()
+            .valueOf().required
+        ).toEqual([prop])
+      })
+
+      it('invalid', () => {
+        const value = 'examples'
+        expect(
+          () =>
+            FluentSchema()
+              .examples(value)
+              .valueOf().examples
+        ).toThrow("'examples' must be an array e.g. ['1', 'one', 'foo']")
+      })
+    })
+
+    describe('required', () => {
       it('valid', () => {
         const prop = 'foo'
         expect(
