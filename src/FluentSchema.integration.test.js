@@ -1,4 +1,5 @@
 const basic = require('./schemas/basic')
+const complex = require('./schemas/complex')
 const { deepOmit } = require('./utils')
 const { FluentSchema } = require('./FluentSchema')
 const Ajv = require('ajv')
@@ -240,7 +241,7 @@ describe('FluentSchema', () => {
   })
 
   describe('basic.json', () => {
-    it.only('generate', () => {
+    it('generate', () => {
       const [step] = basic
       expect(
         deepOmit(
@@ -280,6 +281,36 @@ describe('FluentSchema', () => {
                 )
                 .prop('warehouseLocation')
                 .description('Coordinates of the warehouse with the product')
+            )
+            .valueOf(),
+          '$id'
+        )
+      ).toEqual(step.schema)
+    })
+  })
+  describe('complex.json', () => {
+    it.only('generate', () => {
+      const [step] = basic
+      expect(
+        deepOmit(
+          FluentSchema()
+            .asArray()
+            .minItems(1)
+            .definition('base58')
+            .id('#base58')
+            .pattern(
+              '^[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]+$'
+            )
+            .definition('hex')
+            .id('#hex')
+            .pattern('^[0123456789A-Fa-f]+$')
+            .definition('tx_id')
+            .id('#tx_id')
+            .pattern('^[0123456789A-Fa-f]+$')
+            .allOf(
+              FluentSchema()
+                .ref('#hex')
+                .prop('string')
             )
             .valueOf(),
           '$id'

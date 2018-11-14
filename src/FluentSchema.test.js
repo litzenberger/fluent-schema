@@ -205,13 +205,32 @@ describe('FluentSchema', () => {
       })
     })
 
-    it('ref', () => {
-      const value = 'description'
-      expect(
-        FluentSchema()
-          .description(value)
-          .valueOf().description
-      ).toEqual(value)
+    describe('ref', () => {
+      it('adds to root', () => {
+        expect(
+          FluentSchema()
+            .ref('#id')
+            .valueOf()
+        ).toEqual({
+          $ref: '#id',
+          $schema: 'http://json-schema.org/draft-07/schema#',
+          type: 'object',
+        })
+      })
+
+      it('add to a prop', () => {
+        const prop = 'foo'
+        expect(
+          FluentSchema()
+            .prop(prop)
+            .ref('#id')
+            .valueOf()
+        ).toEqual({
+          $schema: 'http://json-schema.org/draft-07/schema#',
+          properties: { foo: { $ref: '#id' } },
+          type: 'object',
+        })
+      })
     })
   })
 
