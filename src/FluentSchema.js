@@ -70,6 +70,8 @@ const FluentSchema = (schema = initialState) => ({
       ? patchIdsWithParentId(props.valueOf(), $id)
       : props
 
+    // const attributes = schema.options.ids ? addId(name, props) : props
+
     const {
       type = hasCombiningKeywords(attributes) ? undefined : 'string',
       // TODO LS $id should be prefixed with the parent.
@@ -292,10 +294,10 @@ const FluentSchema = (schema = initialState) => ({
     return setAttribute(schema, ['minimum', min, 'number'])
   },
 
-  exclusiveMinimum: max => {
-    if (typeof max !== 'number')
+  exclusiveMinimum: min => {
+    if (typeof min !== 'number')
       throw new Error("'exclusiveMinimum' must be a Number")
-    return setAttribute(schema, ['exclusiveMinimum', max, 'number'])
+    return setAttribute(schema, ['exclusiveMinimum', min, 'number'])
   },
 
   maximum: max => {

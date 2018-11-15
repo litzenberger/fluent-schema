@@ -290,32 +290,50 @@ describe('FluentSchema', () => {
   })
   describe('complex.json', () => {
     it.only('generate', () => {
-      const [step] = basic
       expect(
         deepOmit(
           FluentSchema()
+            .id('http://example.com/product.schema.json')
+            .title('Product')
+            .description("A product from Acme's catalog")
+            .prop('productId')
+            .asInteger()
+            .description('The unique identifier for a product')
+            .required()
+            .prop('productName')
+            .description('Name of the product')
+            .required()
+            .prop('price')
+            .asNumber()
+            .description('The price of the product')
+            .required()
+            .exclusiveMinimum(0)
+            .prop('tags')
             .asArray()
+            .description('Tags for the product')
+            .items(FluentSchema().asString())
             .minItems(1)
-            .definition('base58')
-            .id('#base58')
-            .pattern(
-              '^[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]+$'
-            )
-            .definition('hex')
-            .id('#hex')
-            .pattern('^[0123456789A-Fa-f]+$')
-            .definition('tx_id')
-            .id('#tx_id')
-            .pattern('^[0123456789A-Fa-f]+$')
-            .allOf(
+            .uniqueItems(true)
+            .prop(
+              'dimensions',
               FluentSchema()
-                .ref('#hex')
-                .prop('string')
+                .asObject()
+                .prop('length')
+                .required()
+                .asNumber()
+                .prop('width')
+                .asNumber()
+                .required()
+                .prop('length')
+                .asNumber()
+                .prop('height')
+                .asNumber()
+                .required()
             )
             .valueOf(),
           '$id'
         )
-      ).toEqual(step.schema)
+      ).toEqual(complex)
     })
   })
 })
