@@ -47,7 +47,7 @@ const FluentSchema = (
 ) => ({
   /**
    * It defines a URI for the schema, and the base URI that other URI references within the schema are resolved against.
-   * {@link reference|https://json-schema.org/latest/json-schema-core.html#id-keyword}
+   * {@link https://json-schema.org/latest/json-schema-core.html#id-keyword|reference}
    * @param {string} id - an #id
    * @returns {FluentSchema}
    */
@@ -62,7 +62,7 @@ const FluentSchema = (
 
   /**
    * It can be used to decorate a user interface with information about the data produced by this user interface. A title will preferably be short.
-   * {@link reference|https://json-schema.org/latest/json-schema-validation.html#rfc.section.10.1}
+   * {@link https://json-schema.org/latest/json-schema-validation.html#rfc.section.10.1|reference}
    * @param {string} title
    * @returns {FluentSchema}
    */
@@ -75,7 +75,7 @@ const FluentSchema = (
    * It can be used to decorate a user interface with information about the data
    * produced by this user interface. A description provides explanation about
    * the purpose of the instance described by the schema.
-   * {@link reference|https://json-schema.org/latest/json-schema-validation.html#rfc.section.10.1}
+   * {@link https://json-schema.org/latest/json-schema-validation.html#rfc.section.10.1|reference}
    * @param {string} description
    * @returns {FluentSchema}
    */
@@ -90,7 +90,7 @@ const FluentSchema = (
   /**
    * The value of this keyword MUST be an array.
    * There are no restrictions placed on the values within the array.
-   * {@link reference|https://json-schema.org/latest/json-schema-validation.html#rfc.section.10.4}
+   * {@link https://json-schema.org/latest/json-schema-validation.html#rfc.section.10.4|reference}
    * @param {string} examples
    * @returns {FluentSchema}
    */

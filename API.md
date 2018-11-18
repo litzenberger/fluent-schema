@@ -6,22 +6,22 @@
 </dd>
 <dt><a href="#id">id(id)</a> ⇒ <code><a href="#FluentSchema">FluentSchema</a></code></dt>
 <dd><p>It defines a URI for the schema, and the base URI that other URI references within the schema are resolved against.
-<a href="reference">https://json-schema.org/latest/json-schema-core.html#id-keyword</a></p>
+<a href="https://json-schema.org/latest/json-schema-core.html#id-keyword">reference</a></p>
 </dd>
 <dt><a href="#title">title(title)</a> ⇒ <code><a href="#FluentSchema">FluentSchema</a></code></dt>
 <dd><p>It can be used to decorate a user interface with information about the data produced by this user interface. A title will preferably be short.
-<a href="reference">https://json-schema.org/latest/json-schema-validation.html#rfc.section.10.1</a></p>
+<a href="https://json-schema.org/latest/json-schema-validation.html#rfc.section.10.1">reference</a></p>
 </dd>
 <dt><a href="#description">description(description)</a> ⇒ <code><a href="#FluentSchema">FluentSchema</a></code></dt>
 <dd><p>It can be used to decorate a user interface with information about the data
 produced by this user interface. A description provides explanation about
 the purpose of the instance described by the schema.
-<a href="reference">https://json-schema.org/latest/json-schema-validation.html#rfc.section.10.1</a></p>
+<a href="https://json-schema.org/latest/json-schema-validation.html#rfc.section.10.1">reference</a></p>
 </dd>
 <dt><a href="#examples">examples(examples)</a> ⇒ <code><a href="#FluentSchema">FluentSchema</a></code></dt>
 <dd><p>The value of this keyword MUST be an array.
 There are no restrictions placed on the values within the array.
-<a href="reference">https://json-schema.org/latest/json-schema-validation.html#rfc.section.10.4</a></p>
+<a href="https://json-schema.org/latest/json-schema-validation.html#rfc.section.10.4">reference</a></p>
 </dd>
 <dt><a href="#ref">ref(ref)</a> ⇒ <code><a href="#FluentSchema">FluentSchema</a></code></dt>
 <dd><p>The value must be a valid id e.g. #properties/foo</p>
@@ -56,7 +56,7 @@ Represents a FluentSchema.
 ## id(id) ⇒ [<code>FluentSchema</code>](#FluentSchema)
 
 It defines a URI for the schema, and the base URI that other URI references within the schema are resolved against.
-[https://json-schema.org/latest/json-schema-core.html#id-keyword](reference)
+[reference](https://json-schema.org/latest/json-schema-core.html#id-keyword)
 
 **Kind**: global function
 
@@ -69,7 +69,7 @@ It defines a URI for the schema, and the base URI that other URI references with
 ## title(title) ⇒ [<code>FluentSchema</code>](#FluentSchema)
 
 It can be used to decorate a user interface with information about the data produced by this user interface. A title will preferably be short.
-[https://json-schema.org/latest/json-schema-validation.html#rfc.section.10.1](reference)
+[reference](https://json-schema.org/latest/json-schema-validation.html#rfc.section.10.1)
 
 **Kind**: global function
 
@@ -84,7 +84,7 @@ It can be used to decorate a user interface with information about the data prod
 It can be used to decorate a user interface with information about the data
 produced by this user interface. A description provides explanation about
 the purpose of the instance described by the schema.
-[https://json-schema.org/latest/json-schema-validation.html#rfc.section.10.1](reference)
+[reference](https://json-schema.org/latest/json-schema-validation.html#rfc.section.10.1)
 
 **Kind**: global function
 
@@ -98,7 +98,7 @@ the purpose of the instance described by the schema.
 
 The value of this keyword MUST be an array.
 There are no restrictions placed on the values within the array.
-[https://json-schema.org/latest/json-schema-validation.html#rfc.section.10.4](reference)
+[reference](https://json-schema.org/latest/json-schema-validation.html#rfc.section.10.4)
 
 **Kind**: global function
 
