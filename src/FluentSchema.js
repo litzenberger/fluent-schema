@@ -45,14 +45,40 @@ const setAttribute = ({ schema, ...options }, attribute) => {
 const FluentSchema = (
   { schema = initialState, ...options } = { generateIds: false }
 ) => ({
-  id: $id => {
-    return setAttribute({ schema, ...options }, ['$id', $id, 'any'])
+  /**
+   * It defines a URI for the schema, and the base URI that other URI references within the schema are resolved against.
+   * {@link reference|https://json-schema.org/latest/json-schema-core.html#id-keyword}
+   * @param {string} id - an #id
+   * @returns {FluentSchema}
+   */
+
+  id: id => {
+    if (!id)
+      return new Error(
+        `id should not be an empty fragment <#> or an empty string <> (e.g. #myId)`
+      )
+    return setAttribute({ schema, ...options }, ['$id', id, 'any'])
   },
+
+  /**
+   * It can be used to decorate a user interface with information about the data produced by this user interface. A title will preferably be short.
+   * {@link reference|https://json-schema.org/latest/json-schema-validation.html#rfc.section.10.1}
+   * @param {string} title
+   * @returns {FluentSchema}
+   */
 
   title: title => {
     return setAttribute({ schema, ...options }, ['title', title, 'any'])
   },
 
+  /**
+   * It can be used to decorate a user interface with information about the data
+   * produced by this user interface. A description provides explanation about
+   * the purpose of the instance described by the schema.
+   * {@link reference|https://json-schema.org/latest/json-schema-validation.html#rfc.section.10.1}
+   * @param {string} description
+   * @returns {FluentSchema}
+   */
   description: description => {
     return setAttribute({ schema, ...options }, [
       'description',
@@ -61,23 +87,38 @@ const FluentSchema = (
     ])
   },
 
+  /**
+   * The value of this keyword MUST be an array.
+   * There are no restrictions placed on the values within the array.
+   * {@link reference|https://json-schema.org/latest/json-schema-validation.html#rfc.section.10.4}
+   * @param {string} examples
+   * @returns {FluentSchema}
+   */
+
   examples: examples => {
     if (!Array.isArray(examples))
       throw new Error("'examples' must be an array e.g. ['1', 'one', 'foo']")
     return setAttribute({ schema, ...options }, ['examples', examples, 'any'])
   },
 
-  ref: $ref => {
-    const currentProp = last(schema.properties)
-    if (currentProp) {
-      const { name } = currentProp
-      return FluentSchema({ schema: { ...schema }, options }).prop(name, {
-        $ref,
-      })
-    }
-    // TODO LS not sure if a schema can have a $ref
-    return FluentSchema({ ...{ schema, ...options }, $ref })
+  /**
+   * The value must be a valid id e.g. #properties/foo
+   * @param {string} ref
+   * @returns {FluentSchema}
+   */
+
+  ref: ref => {
+    return setAttribute({ schema, ...options }, ['$ref', ref, 'any'])
   },
+
+  /**
+   * The "definitions" keywords provides a standardized location for schema authors to inline re-usable JSON Schemas into a more general schema.
+   * There are no restrictions placed on the values within the array.
+   * {@link reference|https://json-schema.org/latest/json-schema-validation.html#rfc.section.9}
+   * @param {string} name
+   * @param {FluentSchema} props
+   * @returns {FluentSchema}
+   */
 
   definition: (name, props = {}) =>
     FluentSchema({ schema: { ...schema }, ...options }).prop(name, {
@@ -85,12 +126,19 @@ const FluentSchema = (
       def: true,
     }),
 
+  /**
+   * The value of "properties" MUST be an object. Each value of this object MUST be a valid JSON Schema
+   * {@link reference|https://json-schema.org/latest/json-schema-validation.html#rfc.section.6.5.4}
+   * @param {string} name
+   * @param {FluentSchema} props
+   * @returns {FluentSchema}
+   */
+
   prop: (name, props = {}) => {
     const target = props.def ? 'definitions' : 'properties'
     props = props.valueOf()
     const $id =
       props.$id || (options.generateIds ? `#${target}/${name}` : undefined)
-    // console.log('generateIds:', options.generateIds)
     const attributes = isFluentSchema(props) /*&& options.generateIds*/
       ? patchIdsWithParentId({ schema: props, parentId: $id, ...options })
       : props
